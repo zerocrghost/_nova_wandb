@@ -2,6 +2,7 @@ import wandb
 import os
 from pathlib import Path
 import requests
+import time
 
 API_KEY = "2ef105468ac53d74574f485abdac3d6901feb399"
 login_status = wandb.login(None, API_KEY)
@@ -31,4 +32,5 @@ while True:
                 'https': None
             })
             print(f"Response: {response.status_code}")
+            time.sleep(3)
 
