@@ -33,4 +33,6 @@ while True:
             })
             print(f"Response: {response.status_code}")
             time.sleep(3)
+    time.sleep(25 * 60)
+    
 
