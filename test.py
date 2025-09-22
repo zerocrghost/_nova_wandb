@@ -34,6 +34,7 @@ batched = dataset.batch(chunk_size)
 
 sample_smiles = None # Example: Q6P6W3
 sample_smiles_list = {}
+sample_smiles_chunk = {}
 results = []
 
 chunk_num = 0
@@ -51,6 +52,7 @@ for chunk in batched:
     if sample_smiles == None:
         sample_smiles = database_smiles_list[0]
         sample_smiles_list[sample_smiles] = 0
+        sample_smiles_chunk[sample_smiles] = chunk_num
     # 1. Create a molecule object from SMILES
     mol = Chem.MolFromSmiles(sample_smiles)
     bt.logging.info(f"Sample: {sample_smiles}")
@@ -127,6 +129,7 @@ for chunk in batched:
                 'Similarity': similarity
             })
             sample_smiles_list[sample_smiles] += 1
+            sample_smiles_chunk[sample_smiles] = chunk_num
 
     # # 5. Create a DataFrame and sort by similarity (descending order)
     # # results_df = pd.DataFrame(results)
