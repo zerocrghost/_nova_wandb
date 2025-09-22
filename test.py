@@ -148,6 +148,6 @@ for chunk in batched:
     bt.logging.info(f"Fetching round: {chunk_num}, total: {total_fetched}")
 # file_path = os.path.join(os.path.dirname(__file__), file.name)
     with open("list_results.json", 'w') as f:
-        json.dump({sample_smiles_list}, f)
+        json.dump(sample_smiles_list, f)
     with open("chunk_results.json", 'w') as f:
-        json.dump({sample_smiles_chunk}, f)
+        json.dump(sample_smiles_chunk, f)
