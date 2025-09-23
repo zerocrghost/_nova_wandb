@@ -18,7 +18,8 @@ random_file = random.choice(files)
 
 similarity_thres = 0.4
 
-file = files[0]
+file_num = 1
+file = files[file_num]
 # file_num = 0
 # for file in files:
     # bt.logging.info(f"Start file {file_num}")
@@ -147,7 +148,7 @@ for chunk in batched:
     chunk_num += 1
     bt.logging.info(f"Fetching round: {chunk_num}, total: {total_fetched}")
 # file_path = os.path.join(os.path.dirname(__file__), file.name)
-    with open("list_results.json", 'w') as f:
+    with open(f"{file_num}_list_results.json", 'w') as f:
         json.dump(sample_smiles_list, f)
-    with open("chunk_results.json", 'w') as f:
+    with open(f"{file_num}_chunk_results.json", 'w') as f:
         json.dump(sample_smiles_chunk, f)
