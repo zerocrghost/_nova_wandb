@@ -9,7 +9,7 @@ from rdkit.Chem import rdMolDescriptors
 import bittensor as bt
 import json
 
-chunk_size = 100000
+chunk_size = 300000
 dataset_repo = "Metanova/SAVI-2020"
 
 files = list_repo_files(dataset_repo, repo_type='dataset')
@@ -18,7 +18,7 @@ random_file = random.choice(files)
 
 similarity_thres = 0.4
 
-file = files[0]
+file = files[2]
 # file_num = 0
 # for file in files:
     # bt.logging.info(f"Start file {file_num}")
