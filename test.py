@@ -18,7 +18,7 @@ random_file = random.choice(files)
 
 similarity_thres = 0.4
 
-file = files[1]
+file = files[0]
 # file_num = 0
 # for file in files:
     # bt.logging.info(f"Start file {file_num}")
