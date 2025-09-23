@@ -8,6 +8,10 @@ from datasets import load_dataset
 from rdkit.Chem import rdMolDescriptors
 import bittensor as bt
 import json
+from rdkit import rdBase
+
+# Suppress RDKit warnings
+rdBase.DisableLog('rdApp.warning')
 
 chunk_size = 300000
 dataset_repo = "Metanova/SAVI-2020"
