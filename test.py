@@ -9,7 +9,7 @@ from rdkit.Chem import rdMolDescriptors
 import bittensor as bt
 import json
 
-chunk_size = 10000
+chunk_size = 300000
 dataset_repo = "Metanova/SAVI-2020"
 
 files = list_repo_files(dataset_repo, repo_type='dataset')
