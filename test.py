@@ -58,6 +58,7 @@ total_fetched = 0
 for chunk in batched:
     if chunk_num <= skip_chunks:
         bt.logging.info(f"Skip {chunk_num} chunk")
+        chunk_num += 1
         continue
     df = pd.DataFrame.from_dict(chunk)
     # Clean data
