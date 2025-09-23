@@ -23,6 +23,8 @@ random_file = random.choice(files)
 similarity_thres = 0.4
 
 file_num = 1
+skip_chunks = 0
+
 file = files[file_num]
 # file_num = 0
 # for file in files:
@@ -42,9 +44,20 @@ sample_smiles_list = {}
 sample_smiles_chunk = {}
 results = []
 
+
+if skip_chunks > 0:
+    with open(f"{file_num}_list_results.json", 'r') as f:
+        list_results = json.load(f)
+        sample_smiles_list = list_results
+    with open(f"{file_num}_chunk_results.json", 'r') as f:
+        chunk_results = json.load(f)
+        sample_smiles_chunk = chunk_results
+
 chunk_num = 0
 total_fetched = 0
 for chunk in batched:
+    if chunk_num <= skip_chunks:
+        bt.logging.info(f"Skip {chunk_num} chunk")
     df = pd.DataFrame.from_dict(chunk)
     # Clean data
     df['product_name'] = df['product_name'].apply(lambda x: x.replace('"', ''))
