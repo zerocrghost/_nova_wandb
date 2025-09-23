@@ -56,7 +56,7 @@ for chunk in batched:
         sample_smiles_chunk[sample_smiles] = chunk_num
     # 1. Create a molecule object from SMILES
     mol = Chem.MolFromSmiles(sample_smiles)
-    bt.logging.info(f"Sample: {sample_smiles}")
+    # bt.logging.info(f"Sample: {sample_smiles}")
 
     # 2. Standardize: Remove salts, neutralize charges, canonicalize tautomers
     remover = SaltRemover.SaltRemover()
@@ -95,10 +95,10 @@ for chunk in batched:
             sample_smiles_list[sample_smiles] += 1
  
         else:
-            bt.logging.info(f"Update smilarity_sample")
+            # bt.logging.info(f"Update smilarity_sample")
             sample_smiles = smi
             sample_smiles_list[sample_smiles] = 0
-            bt.logging.info(f"Sample: {sample_smiles}")
+            # bt.logging.info(f"Sample: {sample_smiles}")
             
             # 1. Create a molecule object from SMILES
             mol = Chem.MolFromSmiles(sample_smiles)
