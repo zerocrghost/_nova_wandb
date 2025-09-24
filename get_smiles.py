@@ -69,3 +69,5 @@ for chunk in batched:
         json.dump(database_smiles_list, f)
     with open(f"{file_num}_{target_index}_list_results.json", 'w') as f:
         json.dump(database_smiles_list[start_index:end_index], f)
+    bt.logging.info(f"Fetching finished")
+    break
