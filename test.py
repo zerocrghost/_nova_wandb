@@ -57,7 +57,7 @@ chunk_num = 0
 smile_num = 0
 total_fetched = 0
 for chunk in batched:
-    if chunk_num <= skip_chunks:
+    if chunk_num < skip_chunks:
         bt.logging.info(f"Skip {chunk_num} chunk")
         chunk_num += 1
         continue
