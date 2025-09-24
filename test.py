@@ -72,7 +72,10 @@ for chunk in batched:
     total_fetched += len(database_smiles_list)
     if sample_smiles == None:
         sample_smiles = database_smiles_list[0]
-        sample_smiles_list[sample_smiles] = 0
+        sample_smiles_list[sample_smiles] = {
+            "group_num": 0,
+            "start_index": 0
+        }
         # sample_smiles_chunk[sample_smiles] = chunk_num
     # 1. Create a molecule object from SMILES
     mol = Chem.MolFromSmiles(sample_smiles)
@@ -106,19 +109,22 @@ for chunk in batched:
         # Calculate Tanimoto similarity
         similarity = DataStructs.TanimotoSimilarity(query_fp, db_fp)
         if similarity >= similarity_thres:
-            # Append the result
-            results.append({
-                'SAMPLE': sample_smiles,
-                'SMILES': smi,
-                'Similarity': similarity,
-                'SMILE_NUM': smile_num
-            })
-            sample_smiles_list[sample_smiles] += 1
+            # # Append the result
+            # results.append({
+            #     'SAMPLE': sample_smiles,
+            #     'SMILES': smi,
+            #     'Similarity': similarity,
+            #     'SMILE_NUM': smile_num
+            # })
+            sample_smiles_list[sample_smiles]["group_num"] += 1
  
         else:
             # bt.logging.info(f"Update smilarity_sample")
             sample_smiles = smi
-            sample_smiles_list[sample_smiles] = 0
+            sample_smiles_list[sample_smiles] = {
+                "group_num": 0,
+                "start_index": smile_num
+            }
             # bt.logging.info(f"Sample: {sample_smiles}")
             
             # 1. Create a molecule object from SMILES
@@ -144,14 +150,14 @@ for chunk in batched:
             query_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(query_mol, radius=2, nBits=2048)
             similarity = DataStructs.TanimotoSimilarity(query_fp, db_fp)
 
-            # Append the result
-            results.append({
-                'SAMPLE': sample_smiles,
-                'SMILES': smi,
-                'Similarity': similarity,
-                'SMILE_NUM': smile_num
-            })
-            sample_smiles_list[sample_smiles] += 1
+            # # Append the result
+            # results.append({
+            #     'SAMPLE': sample_smiles,
+            #     'SMILES': smi,
+            #     'Similarity': similarity,
+            #     'SMILE_NUM': smile_num
+            # })
+            sample_smiles_list[sample_smiles]["group_num"] += 1
         
         smile_num += 1    
             # sample_smiles_chunk[sample_smiles] = chunk_num
