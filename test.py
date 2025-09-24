@@ -22,7 +22,7 @@ random_file = random.choice(files)
 
 similarity_thres = 0.4
 
-file_num = 1
+file_num = 0
 skip_chunks = 0
 
 file = files[file_num]
@@ -41,7 +41,7 @@ batched = dataset.batch(chunk_size)
 
 sample_smiles = None # Example: Q6P6W3
 sample_smiles_list = {}
-sample_smiles_chunk = {}
+# sample_smiles_chunk = {}
 results = []
 
 
@@ -49,11 +49,12 @@ if skip_chunks > 0:
     with open(f"{file_num}_list_results.json", 'r') as f:
         list_results = json.load(f)
         sample_smiles_list = list_results
-    with open(f"{file_num}_chunk_results.json", 'r') as f:
-        chunk_results = json.load(f)
-        sample_smiles_chunk = chunk_results
+    # with open(f"{file_num}_chunk_results.json", 'r') as f:
+    #     chunk_results = json.load(f)
+    #     sample_smiles_chunk = chunk_results
 
 chunk_num = 0
+smile_num = 0
 total_fetched = 0
 for chunk in batched:
     if chunk_num <= skip_chunks:
@@ -72,7 +73,7 @@ for chunk in batched:
     if sample_smiles == None:
         sample_smiles = database_smiles_list[0]
         sample_smiles_list[sample_smiles] = 0
-        sample_smiles_chunk[sample_smiles] = chunk_num
+        # sample_smiles_chunk[sample_smiles] = chunk_num
     # 1. Create a molecule object from SMILES
     mol = Chem.MolFromSmiles(sample_smiles)
     # bt.logging.info(f"Sample: {sample_smiles}")
@@ -109,7 +110,8 @@ for chunk in batched:
             results.append({
                 'SAMPLE': sample_smiles,
                 'SMILES': smi,
-                'Similarity': similarity
+                'Similarity': similarity,
+                'SMILE_NUM': smile_num
             })
             sample_smiles_list[sample_smiles] += 1
  
@@ -146,10 +148,13 @@ for chunk in batched:
             results.append({
                 'SAMPLE': sample_smiles,
                 'SMILES': smi,
-                'Similarity': similarity
+                'Similarity': similarity,
+                'SMILE_NUM': smile_num
             })
             sample_smiles_list[sample_smiles] += 1
-            sample_smiles_chunk[sample_smiles] = chunk_num
+        
+        smile_num += 1    
+            # sample_smiles_chunk[sample_smiles] = chunk_num
 
     # # 5. Create a DataFrame and sort by similarity (descending order)
     # # results_df = pd.DataFrame(results)
@@ -169,5 +174,5 @@ for chunk in batched:
 # file_path = os.path.join(os.path.dirname(__file__), file.name)
     with open(f"{file_num}_list_results.json", 'w') as f:
         json.dump(sample_smiles_list, f)
-    with open(f"{file_num}_chunk_results.json", 'w') as f:
-        json.dump(sample_smiles_chunk, f)
+    # with open(f"{file_num}_chunk_results.json", 'w') as f:
+    #     json.dump(sample_smiles_chunk, f)
