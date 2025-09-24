@@ -25,8 +25,9 @@ similarity_thres = 0.4
 file_num = 0
 
 target_index = 5400758
+length = 992
 start_index = target_index % chunk_size
-end_index = 5400758 + 992
+end_index = (target_index + length) % chunk_size
 skip_chunks = target_index // chunk_size + 1
 bt.logging.info(f"Get chunk at {skip_chunks}, index from {start_index} to {end_index}")
 
