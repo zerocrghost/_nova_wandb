@@ -19,6 +19,7 @@ while True:
     # Work with files
     for file in files:
         file_path = os.path.join(os.path.dirname(__file__), f"downloads/{file.name}")
+        print(f"File path: {file_path}")
         if "validation_round" in file.name and not Path(file_path).exists():
             print(f"Validation File: {file.name}")
             print(f"Size: {file.size} bytes")
