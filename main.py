@@ -26,10 +26,10 @@ while True:
             print(f"Type: {file.mimetype}")
             file.download(root="./downloads")
             data = {"filePath": file_path}
-            response = requests.post(url, json = data, proxies={
-                'http': None,
-                'https': None
-            })
-            print(f"Response: {response.status_code}")
-            time.sleep(3)
-    time.sleep(25 * 60)
+            # response = requests.post(url, json = data, proxies={
+            #     'http': None,
+            #     'https': None
+            # })
+            # print(f"Response: {response.status_code}")
+            # time.sleep(3)
+    time.sleep(5 * 60)

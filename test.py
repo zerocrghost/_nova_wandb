@@ -47,7 +47,7 @@ results = []
 
 if skip_chunks > 0:
     with open(f"{file_num}_list_results.json", 'r') as f:
-        list_results = json.load(f)
+        list_results = f.read()
         sample_smiles_list = list_results
     # with open(f"{file_num}_chunk_results.json", 'r') as f:
     #     chunk_results = json.load(f)
